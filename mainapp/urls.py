@@ -1,12 +1,11 @@
-  GNU nano 4.8                        urls.py
-from django.http import HttpResponse
-from django.views.generic import View
+from django.urls import path
 
+from mainapp import views
+from mainapp.apps import MainappConfig
 
-class HelloWorldView(View):
-    def get(self, *args, **kwargs):
-        return HttpResponse("Hello world")
+app_name = MainappConfig.name
 
-
-def check_kwargs(request, **kwargs):
-    return HttpResponse(f"kwargs:<br>{kwargs}")
+urlpatterns = [
+    path("", views.HelloWorldView.as_view()),
+    path("<str:word>/", views.check_kwargs),
+]
